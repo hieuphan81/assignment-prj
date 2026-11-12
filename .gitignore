@@ -1,0 +1,14 @@
+.env
+.env.*
+!.env.example
+backend/.env
+backend/.env.*
+!backend/.env.example
+backend/target/
+frontend_jsp/target/
+backend/private-uploads/
+private-uploads/
+.tools/
+local-config.js
+*.log
+*.bak

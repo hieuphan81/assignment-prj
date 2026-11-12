@@ -1,0 +1,12 @@
+package vn.math10ai.progress;
+import java.util.List;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+@Repository
+public class ProgressRepository {
+ private final JdbcTemplate jdbc;public ProgressRepository(JdbcTemplate jdbc){this.jdbc=jdbc;}
+ public ProgressSummary student(int id){return jdbc.query("SELECT u.user_id,u.full_name,COUNT(a.attempt_id) attempts,COALESCE(SUM(CASE WHEN a.is_correct=1 THEN 1 ELSE 0 END),0) correct,COUNT(a.is_correct) graded,COALESCE(AVG(CAST(a.score AS FLOAT)),0) avg_score FROM dbo.USERS u LEFT JOIN dbo.ATTEMPTS a ON a.student_id=u.user_id WHERE u.user_id=? GROUP BY u.user_id,u.full_name",r->r.next()?new ProgressSummary(r.getInt(1),r.getString(2),r.getInt(3),r.getLong(4),r.getInt(5)==0?0.0:100.0*r.getLong(4)/r.getInt(5),r.getDouble(6)):null,id);}
+ public List<TopicProgress> topics(int studentId){return jdbc.query("SELECT t.topic_id,t.topic_name,COUNT(a.is_correct),COALESCE(SUM(CASE WHEN a.is_correct=1 THEN 1 ELSE 0 END),0) FROM dbo.TOPICS t LEFT JOIN dbo.LESSONS l ON l.topic_id=t.topic_id LEFT JOIN dbo.QUESTIONS q ON q.lesson_id=l.lesson_id LEFT JOIN dbo.ATTEMPTS a ON a.question_id=q.question_id AND a.student_id=? WHERE t.status='ACTIVE' GROUP BY t.topic_id,t.topic_name,t.topic_order ORDER BY t.topic_order",(r,n)->new TopicProgress(r.getInt(1),r.getString(2),r.getInt(3),r.getInt(4),r.getInt(3)==0?0.0:100.0*r.getInt(4)/r.getInt(3)),studentId);}
+ public List<ProgressSummary> students(int teacherId){return jdbc.query("SELECT u.user_id,u.full_name,COUNT(a.attempt_id),COALESCE(SUM(CASE WHEN a.is_correct=1 THEN 1 ELSE 0 END),0),COUNT(a.is_correct),COALESCE(AVG(CAST(a.score AS FLOAT)),0) FROM dbo.USERS u LEFT JOIN dbo.ATTEMPTS a ON a.student_id=u.user_id WHERE u.role='STUDENT' AND u.teacher_id=? GROUP BY u.user_id,u.full_name ORDER BY u.full_name",(r,n)->{int total=r.getInt(3);long correct=r.getLong(4);int graded=r.getInt(5);return new ProgressSummary(r.getInt(1),r.getString(2),total,correct,graded==0?0.0:100.0*correct/graded,r.getDouble(6));},teacherId);}
+ public ProgressSummary global(){return jdbc.query("SELECT CAST(NULL AS INT),N'Toàn hệ thống',COUNT(a.attempt_id),COALESCE(SUM(CASE WHEN a.is_correct=1 THEN 1 ELSE 0 END),0),COUNT(a.is_correct),COALESCE(AVG(CAST(a.score AS FLOAT)),0) FROM dbo.ATTEMPTS a",r->r.next()?new ProgressSummary(null,r.getString(2),r.getInt(3),r.getLong(4),r.getInt(5)==0?0.0:100.0*r.getLong(4)/r.getInt(5),r.getDouble(6)):null);}
+}

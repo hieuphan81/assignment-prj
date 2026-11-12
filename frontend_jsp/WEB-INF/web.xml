@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                             https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+
+    <display-name>Math10 AI — Website Học Toán 10 Tích Hợp AI (PRJ301)</display-name>
+
+    <description>
+        Dự án môn PRJ301 - Website hỗ trợ học Toán 10 tích hợp trí tuệ nhân tạo (AI Socratic &amp; AI Vision)
+        theo chuẩn chương trình Kết nối tri thức với cuộc sống.
+    </description>
+
+    <!-- Welcome File List -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+    <!-- Session Configuration -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+        <cookie-config>
+            <http-only>true</http-only>
+            <secure>false</secure>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
+
+    <!-- Page Encoding Configuration for JSP -->
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+            <scripting-invalid>false</scripting-invalid>
+            <trim-directive-whitespaces>true</trim-directive-whitespaces>
+        </jsp-property-group>
+    </jsp-config>
+
+    <!-- JSP URL Mappings for Clean URLs without .jsp extension -->
+    <servlet>
+        <servlet-name>IndexJsp</servlet-name>
+        <jsp-file>/index.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>IndexJsp</servlet-name>
+        <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LessonsJsp</servlet-name>
+        <jsp-file>/lessons.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LessonsJsp</servlet-name>
+        <url-pattern>/lessons</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LessonDetailJsp</servlet-name>
+        <jsp-file>/lesson-detail.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LessonDetailJsp</servlet-name>
+        <url-pattern>/lesson-detail</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FormulasJsp</servlet-name>
+        <jsp-file>/formulas.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FormulasJsp</servlet-name>
+        <url-pattern>/formulas</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PracticeJsp</servlet-name>
+        <jsp-file>/practice.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PracticeJsp</servlet-name>
+        <url-pattern>/practice</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AiTutorJsp</servlet-name>
+        <jsp-file>/ai-tutor.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AiTutorJsp</servlet-name>
+        <url-pattern>/ai-tutor</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>HistoryJsp</servlet-name>
+        <jsp-file>/history.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HistoryJsp</servlet-name>
+        <url-pattern>/history</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProgressJsp</servlet-name>
+        <jsp-file>/progress.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProgressJsp</servlet-name>
+        <url-pattern>/progress</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EssayJsp</servlet-name>
+        <jsp-file>/essay.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EssayJsp</servlet-name>
+        <url-pattern>/essay</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LoginJsp</servlet-name>
+        <jsp-file>/login.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginJsp</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RegisterJsp</servlet-name>
+        <jsp-file>/register.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterJsp</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TeacherQuestionsJsp</servlet-name>
+        <jsp-file>/teacher-questions.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TeacherQuestionsJsp</servlet-name>
+        <url-pattern>/teacher/questions</url-pattern>
+        <url-pattern>/teacher-questions</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TeacherStudentsJsp</servlet-name>
+        <jsp-file>/teacher-students.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TeacherStudentsJsp</servlet-name>
+        <url-pattern>/teacher/students</url-pattern>
+        <url-pattern>/teacher-students</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminUsersJsp</servlet-name>
+        <jsp-file>/admin-users.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminUsersJsp</servlet-name>
+        <url-pattern>/admin/users</url-pattern>
+        <url-pattern>/admin-users</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminSettingsJsp</servlet-name>
+        <jsp-file>/admin-settings.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminSettingsJsp</servlet-name>
+        <url-pattern>/admin/settings</url-pattern>
+        <url-pattern>/admin-settings</url-pattern>
+    </servlet-mapping>
+
+</web-app>
